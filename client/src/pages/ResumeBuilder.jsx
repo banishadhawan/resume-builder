@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Dashboard = () =>{
+const ResumeBuilder = () =>{
     return (
         <div>
             <h1>ResumeBuilder page</h1>
