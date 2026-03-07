@@ -1,5 +1,6 @@
 import React from "react";
 import Title from "./Title";
+import {Zap, BookUserIcon} from 'lucide-react';
 
 const Features = () => {
     const [isHover, setIsHover] = React.useState(false);
