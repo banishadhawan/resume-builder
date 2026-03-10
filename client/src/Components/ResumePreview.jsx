@@ -24,8 +24,7 @@ const ResumePreview = ({data, template, accentColor, classes=""}) => {
                 {renderTemplate()}
             </div>
 
-            <style jsx>
-                {
+            <style>{`
                 @page {
                     size: letter;
                     margin: 0;
@@ -54,8 +53,7 @@ const ResumePreview = ({data, template, accentColor, classes=""}) => {
                         border: none !important;
                     }
                 }
-                }
-            </style>
+            `}</style>
         </div>
     )
 }

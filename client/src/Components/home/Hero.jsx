@@ -1,5 +1,6 @@
 import React from 'react'
-import { Link } from 'react-router-dom';    
+import { Link } from 'react-router-dom';   
+import logo from '../../assets/logo.svg';
 
 const Hero = () => {
 
@@ -19,7 +20,7 @@ const Hero = () => {
                 {/* Navbar */}
                 <nav className="z-50 flex items-center justify-between w-full py-4 px-6 md:px-16 lg:px-24 xl:px-40 text-sm">
                     <a href="https://prebuiltui.com">
-                        <img src="/logo.svg" alt="logo" className="h-11 w-auto"/>
+                        <img src={logo} alt="logo" className="h-11 w-auto"/>
                     </a>
 
                     <div className="hidden md:flex items-center gap-8 transition duration-500 text-slate-800">
@@ -104,20 +105,17 @@ const Hero = () => {
                     <p className="py-6 text-slate-600 mt-14">Trusting by leading brands, including</p>
 
                     <div className="flex flex-wrap justify-between max-sm:justify-center gap-6 max-w-3xl w-full mx-auto py-4" id="logo-container">
-                        {logos.map((logo, index) => <img key={index} src={logo}
-                        alt="logo" className="h-6 w-auto max-w-xs" />)}
+                        {logos.map((logoItem, index) => <div key={index} className="h-6 w-auto max-w-xs">{logoItem.logo}</div>)}
                     </div>
                 </div>
             </div>
-            <style>
-                {`
-                    @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+            <style>{`
+                @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-                    * {
-                        font-family: 'Poppins', sans-serif;
-                    }
-                `}
-            </style>
+                * {
+                    font-family: 'Poppins', sans-serif;
+                }
+            `}</style>
         </>
     );
 }

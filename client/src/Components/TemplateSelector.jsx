@@ -1,5 +1,6 @@
-import { Check } from "lucide-react";
-import React from "react";
+import { Check , Layout } from "lucide-react";
+import {useState} from "react";
+// import Layout from "..pages/Layout.jsx"
 
 const TemplateSelector = ({ SelectedTemplate, onChange }) => {
     const [isOpen, setIsOpen] = useState(false)

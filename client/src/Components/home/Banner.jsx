@@ -1,5 +1,6 @@
 import React from 'react'
 
+
 const Banner = () => {
     return (   
         <div className="w-full py-2.5 font-medium text-sm text-green-800 

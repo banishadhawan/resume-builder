@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import { dummyResumeData } from '../assets/assets'
-import { ArrowLeftIcon, Briefcase, ChevronLeft, ChevronRight, FileText, FolderIcon, GraduationCap, Link, Sparkles, User } from 'lucide-react'
+import { ArrowLeftIcon, Briefcase, ChevronLeft, ChevronRight, FileText, FolderIcon, GraduationCap, Sparkles, User } from 'lucide-react'
 import ResumePreview from '../Components/ResumePreview'
 import TemplateSelector from '../Components/TemplateSelector'
 import ColorPicker from '../Components/ColorPicker'
+import ProfessionalSummaryForm from '../Components/ProfessionalSummaryForm'
+import PersonalInfoForm from '../Components/PersonalInfoForm'
 
 const ResumeBuilder = () =>{
 
-    const { resumeId } = useParams
+    const { resumeId } = useParams()
 
     const [resumeData, setResumeData] = useState({
         _id: '',
@@ -59,14 +61,14 @@ const ResumeBuilder = () =>{
                 </Link>
            </div>
 
-           <div className='max--w-7xl mx-auto px-4 pb-8'>
+           <div className='max-w-7xl mx-auto px-4 pb-8'>
             <div className='grid lg:grid-cols-12 gap-8'>
                 {/* Left Panel - Form */}
                 <div className='relative lg:col-span-5 rounded-lg overflow-hidden'>
                     <div className='bg-white rounded-lg shadow-sm border border-gray-200 p-6 pt-1'>
                         {/* progress bar using activeSectionIndex */}
-                        <hr className='absolute top-0 left-0 right-0 border-2 border-gray-200' />
-                        <hr className='absolute top-0 left-0 h-1 bg-gradient-to-r from-green-500 to-green-600 border-none transition-all duration-2000' style={{width: `${activeSectionIndex * 100 / (sections.length -1)} %`}}/>
+                        <hr className='absolute top-0 left-0 right-0 h-1 bg-gray-200 border-none' />
+                        <hr className='absolute top-0 left-0 h-1 bg-gradient-to-r from-blue-500 to-blue-600 border-none transition-all duration-300' style={{width: `${(activeSectionIndex + 1) * 100 / sections.length}%`}}/>
 
                         {/* Section Navigation */}
                         <div className='flex justify-between items-center mb-6 border-b border-gray-300 py-1'>
@@ -80,7 +82,7 @@ const ResumeBuilder = () =>{
                                 </button>
                             )}
                              <button onClick={() => setActiveSectionIndex((prevIndex) => Math.min(prevIndex + 1, sections.length - 1))} className={`flex items-center gap-1 p-3 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 transition-all ${activeSectionIndex === sections.length -1 && 'opacity-50'}`} disabled={activeSectionIndex === sections.length - 1}>
-                                    Next <ChevronRight className="size-4" /> Previous
+                                    Next <ChevronRight className="size-4" />
                                 </button>
                             </div>
                         </div>
@@ -89,7 +91,9 @@ const ResumeBuilder = () =>{
                         <div className='space-y-6'>{activeSection.id === 'personal' && (
                             <PersonalInfoForm  data={resumeData.personal_info} onChange={(data)=>setResumeData(prev => ({...prev, personal_info: data }))} removeBackground={removeBackground} setRemoveBackground={setRemoveBackground} />
                         )}
-                        
+                        {activeSection.id === 'summary' && (
+                            <ProfessionalSummaryForm data={resumeData.professional_summary} onChange={(data) => setResumeData(prev => ({...prev, professional_summary : data}))} setResumeData={setResumeData} />
+                        )}
                         </div>
                     </div>
                 </div>
