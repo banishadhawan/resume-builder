@@ -7,6 +7,10 @@ import TemplateSelector from '../Components/TemplateSelector'
 import ColorPicker from '../Components/ColorPicker'
 import ProfessionalSummaryForm from '../Components/ProfessionalSummaryForm'
 import PersonalInfoForm from '../Components/PersonalInfoForm'
+import ExperienceForm from '../Components/ExperienceForm'
+import EducationForm from '../Components/EducationForm'
+import ProjectForm from '../Components/ProjectForm'
+import SkillsForm from '../Components/SkillsForm'
 
 const ResumeBuilder = () =>{
 
@@ -93,6 +97,18 @@ const ResumeBuilder = () =>{
                         )}
                         {activeSection.id === 'summary' && (
                             <ProfessionalSummaryForm data={resumeData.professional_summary} onChange={(data) => setResumeData(prev => ({...prev, professional_summary : data}))} setResumeData={setResumeData} />
+                        )}
+                        {activeSection.id === 'experience' && (
+                            <ExperienceForm data={resumeData.experience} onChange={(data) => setResumeData(prev => ({...prev, experience : data}))} />
+                        )}
+                        {activeSection.id === 'education' && (
+                            <EducationForm data={resumeData.education} onChange={(data) => setResumeData(prev => ({...prev, education : data}))} />
+                        )}
+                        {activeSection.id === 'projects' && (
+                            <ProjectForm data={resumeData.project} onChange={(data) => setResumeData(prev => ({...prev, project : data}))} />
+                        )}
+                        {activeSection.id === 'skills' && (
+                            <SkillsForm data={resumeData.skills} onChange={(data) => setResumeData(prev => ({...prev, skills : data}))} />
                         )}
                         </div>
                     </div>
