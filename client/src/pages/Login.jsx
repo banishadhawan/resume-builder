@@ -1,11 +1,23 @@
 import React from 'react'
 import { Lock, Mail, User2Icon } from 'lucide-react' 
+import api from '../configs/api'
+import { useDispatch } from 'react-redux'
+import { login } from '../app/features/authSlice'
+import toast from 'react-hot-toast'
+import { useNavigate, useSearchParams } from 'react-router-dom'
 
 const Login = () =>{
 
-    const query = new URLSearchParams(window.location.search)
-    const urlState = query.get('state')
-    const [state, setState] = React.useState("login")
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const [searchParams, setSearchParams] = useSearchParams()
+    const urlState = searchParams.get('state')
+    const [state, setState] = React.useState(urlState === 'register' ? 'register' : 'login')
+    const [isSubmitting, setIsSubmitting] = React.useState(false)
+
+    React.useEffect(() => {
+        setState(urlState === 'register' ? 'register' : 'login')
+    }, [urlState])
 
     const [formData, setFormData] = React.useState({
         name: '',
@@ -16,6 +28,23 @@ const Login = () =>{
     const handleSubmit = async (e) => {
         e.preventDefault()
 
+        if (isSubmitting) {
+            return
+        }
+
+        setIsSubmitting(true)
+
+        try{
+            const {data} = await api.post(`/api/users/${state}`, formData)
+            dispatch(login(data))
+            localStorage.setItem('token',data.token)
+            toast.success(data.message)
+            navigate('/app', { replace: true })
+        } catch (error){
+            toast.error(error?.response?.data?.message || error.message)
+        } finally {
+            setIsSubmitting(false)
+        }
     }
 
     const handleChange = (e) => {
@@ -46,9 +75,18 @@ const Login = () =>{
                     <button className="text-sm" type="reset">Forget password?</button>
                 </div>
                 <button type="submit" className="mt-2 w-full h-11 rounded-full text-white bg-green-500 hover:opacity-90 transition-opacity">
-                    {state === "login" ? "Login" : "Sign up"}
+                    {isSubmitting ? 'Please wait...' : state === "login" ? "Login" : "Sign up"}
                 </button>
-                <p onClick={() => setState(prev => prev === "login" ? "register" : "login")} className="text-gray-500 text-sm mt-3 mb-11">{state === "login" ? "Don't have an account?" : "Already have an account?"} <a href="#" className="text-green-500 hover:underline">click here</a></p>
+                <p
+                    onClick={() => {
+                        const nextState = state === 'login' ? 'register' : 'login'
+                        setState(nextState)
+                        setSearchParams({ state: nextState })
+                    }}
+                    className="text-gray-500 text-sm mt-3 mb-11"
+                >
+                    {state === "login" ? "Don't have an account?" : "Already have an account?"} <a href="#" className="text-green-500 hover:underline">click here</a>
+                </p>
             </form>
         </div>
     )

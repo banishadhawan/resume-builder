@@ -1,0 +1,9 @@
+# Workspace-level ignores only.
+# App-specific ignores live in client/.gitignore and server/.gitignore.
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/*
+!.vscode/extensions.json
+.idea/
